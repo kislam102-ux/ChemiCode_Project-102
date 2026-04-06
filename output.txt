@@ -1,56 +1,251 @@
 === ChemiCode Compiler Start ===
 Input file: test.chem
 Output file: output.txt
-[Section Enter] LabSession
-Aqueous acid-base workflow
-7
-12.5
-[Section Exit] LabSession
-[Section Enter] ENVIRONMENT
-[Environment] Temperature set to 310.150 K
-[Environment] Pressure set to 1.200 atm
-311.35
-[Render] Environment stabilized
-[Section Exit] ENVIRONMENT
-[Section Enter] INORGANIC
-NaCl
-58.44
-[Ne] 3s1
-1
-alkali metal
-true
-[Reaction] HCl + NaOH -> NaCl + H2O
-1 HCl + 1 NaOH -> 1 NaCl + 1 H2O
-NaCl + H2O
-AgCl(s) precipitate
-[Section Exit] INORGANIC
-[Section Enter] ORGANIC
-true
-false
-true
-aromatic
-Organic branch accepted
-[Section Exit] ORGANIC
-[Section Enter] QUANTUM
-(n=1,l=2,m=2,s=+1/2)
--393.5
-[Section Exit] QUANTUM
-[Section Enter] PROTOCOL
-0.7
-0.9
-1.1
-1.3
-Titration step
-1.4
-Titration step
-1.5
-Titration step
-1.6
-[Section Exit] PROTOCOL
-[Section Enter] HAZARD_CHECK
-Safety attention required
-ALERT
-[Section Exit] HAZARD_CHECK
+
+=== Intermediate Representation ===
+SECTION LabSession BEGIN
+  DECL Context experiment
+  t1 = CONST Aqueous acid-base workflow
+  STORE experiment, t1
+  DECL Double targetPh
+  t2 = CONST 7
+  STORE targetPh, t2
+  DECL Double parsedFromString
+  t3 = CONST 12.5
+  STORE parsedFromString, t3
+  t4 = LOAD experiment
+  ARG 0 = t4
+  t5 = CALL PRINT 1
+  t6 = LOAD targetPh
+  ARG 0 = t6
+  t7 = CALL PRINT 1
+  t8 = LOAD parsedFromString
+  ARG 0 = t8
+  t9 = CALL PRINT 1
+SECTION LabSession END
+SECTION ENVIRONMENT BEGIN
+  t10 = CONST 310.15
+  STORE ENV.Temperature, t10
+  t11 = CONST 1.2
+  STORE ENV.Pressure, t11
+  DECL Double ambientScore
+  t12 = LOAD ENV.Temperature
+  t13 = LOAD ENV.Pressure
+  t14 = ADD t12, t13
+  STORE ambientScore, t14
+  t15 = LOAD ambientScore
+  ARG 0 = t15
+  t16 = CALL PRINT 1
+  t17 = CONST Environment stabilized
+  ARG 0 = t17
+  t18 = CALL RENDER 1
+SECTION ENVIRONMENT END
+SECTION INORGANIC BEGIN
+  DECL Element sodium
+  t19 = CONST Na
+  STORE sodium, t19
+  DECL Element chloride
+  t20 = CONST Cl
+  STORE chloride, t20
+  DECL Compound salt
+  t21 = CONST NaCl
+  STORE salt, t21
+  DECL Compound water
+  t22 = CONST H2O
+  STORE water, t22
+  DECL Reaction neutralization
+  t23 = CONST HCl + NaOH -> NaCl + H2O
+  STORE neutralization, t23
+  t24 = LOAD salt
+  ARG 0 = t24
+  t25 = CALL GET_FORMULA 1
+  ARG 0 = t25
+  t26 = CALL PRINT 1
+  t27 = LOAD salt
+  ARG 0 = t27
+  t28 = CALL GET_MASS 1
+  ARG 0 = t28
+  t29 = CALL PRINT 1
+  t30 = LOAD sodium
+  ARG 0 = t30
+  t31 = CALL GET_CONFIG 1
+  ARG 0 = t31
+  t32 = CALL PRINT 1
+  t33 = LOAD sodium
+  ARG 0 = t33
+  t34 = CALL GET_VALENCE_ELECTRON 1
+  ARG 0 = t34
+  t35 = CALL PRINT 1
+  t36 = LOAD sodium
+  ARG 0 = t36
+  t37 = CALL FIND_SERIES 1
+  ARG 0 = t37
+  t38 = CALL PRINT 1
+  t39 = LOAD sodium
+  ARG 0 = t39
+  t40 = CALL IS_METAL 1
+  ARG 0 = t40
+  t41 = CALL PRINT 1
+  t42 = CONST HCl
+  t43 = CONST NaOH
+  t44 = SPECIES_JOIN t42, t43
+  t45 = CONST NaCl
+  t46 = CONST H2O
+  t47 = SPECIES_JOIN t45, t46
+  REACTION t44 -> t47
+  t48 = LOAD neutralization
+  ARG 0 = t48
+  t49 = CALL BALANCE 1
+  ARG 0 = t49
+  t50 = CALL PRINT 1
+  t51 = CONST HCl
+  ARG 0 = t51
+  t52 = CONST NaOH
+  ARG 1 = t52
+  t53 = CALL REACT 2
+  ARG 0 = t53
+  t54 = CALL PRINT 1
+  t55 = CONST AgNO3
+  ARG 0 = t55
+  t56 = CONST NaCl
+  ARG 1 = t56
+  t57 = CALL PRECIPITATE 2
+  ARG 0 = t57
+  t58 = CALL PRINT 1
+SECTION INORGANIC END
+SECTION ORGANIC BEGIN
+  DECL Organic alkane
+  t59 = CONST ethane
+  STORE alkane, t59
+  DECL Organic alkene
+  t60 = CONST ethene
+  STORE alkene, t60
+  DECL Compound benzene
+  t61 = CONST benzene
+  STORE benzene, t61
+  t62 = LOAD alkane
+  ARG 0 = t62
+  t63 = CALL IS_SATURATED 1
+  ARG 0 = t63
+  t64 = CALL PRINT 1
+  t65 = LOAD alkene
+  ARG 0 = t65
+  t66 = CALL IS_SATURATED 1
+  ARG 0 = t66
+  t67 = CALL PRINT 1
+  t68 = CONST butane
+  ARG 0 = t68
+  t69 = CONST isobutane
+  ARG 1 = t69
+  t70 = CALL IS_ISOMER 2
+  ARG 0 = t70
+  t71 = CALL PRINT 1
+  t72 = LOAD benzene
+  ARG 0 = t72
+  t73 = CALL FIND_SERIES 1
+  ARG 0 = t73
+  t74 = CALL PRINT 1
+  t75 = LOAD alkane
+  ARG 0 = t75
+  t76 = CALL GET_MASS 1
+  t77 = CONST 10
+  t78 = GT t76, t77
+  t79 = LOAD ENV.Pressure
+  t80 = CONST 1
+  t81 = GT t79, t80
+  t82 = AND t78, t81
+  IF_FALSE t82 GOTO L1
+  t83 = CONST Organic branch accepted
+  ARG 0 = t83
+  t84 = CALL PRINT 1
+  GOTO L2
+L1:
+  t85 = CONST Organic branch rejected
+  ARG 0 = t85
+  t86 = CALL PRINT 1
+L2:
+SECTION ORGANIC END
+SECTION QUANTUM BEGIN
+  DECL Element oxygen
+  t87 = CONST O
+  STORE oxygen, t87
+  t88 = LOAD oxygen
+  ARG 0 = t88
+  t89 = CALL GET_QUANTUM_NUMBERS 1
+  ARG 0 = t89
+  t90 = CALL PRINT 1
+  t91 = CONST Combustion
+  ARG 0 = t91
+  t92 = CALL GET_ENTHALPY 1
+  ARG 0 = t92
+  t93 = CALL PRINT 1
+SECTION QUANTUM END
+SECTION PROTOCOL BEGIN
+  DECL Double mol
+  t94 = CONST 0.5
+  STORE mol, t94
+  DECL Double limit
+  t95 = CONST 1.1
+  STORE limit, t95
+L3:
+  t96 = LOAD mol
+  t97 = LOAD limit
+  t98 = LT t96, t97
+  IF_FALSE t98 GOTO L4
+  t99 = LOAD mol
+  t100 = CONST 0.2
+  t101 = ADD t99, t100
+  STORE mol, t101
+  t102 = LOAD mol
+  ARG 0 = t102
+  t103 = CALL PRINT 1
+  GOTO L3
+L4:
+L5: ; TITRATE
+  t104 = LOAD mol
+  t105 = CONST 0.1
+  t106 = ADD t104, t105
+  STORE mol, t106
+  t107 = CONST Titration step
+  ARG 0 = t107
+  t108 = CALL PRINT 1
+  t109 = LOAD mol
+  ARG 0 = t109
+  t110 = CALL PRINT 1
+  t111 = LOAD mol
+  t112 = CONST 1.5
+  t113 = GT t111, t112
+  IF_FALSE t113 GOTO L5
+SECTION PROTOCOL END
+SECTION HAZARD_CHECK BEGIN
+  DECL Config status
+  t114 = CONST PASS
+  STORE status, t114
+  t115 = LOAD ENV.Temperature
+  t116 = CONST 300
+  t117 = GT t115, t116
+  t118 = LOAD ENV.Pressure
+  t119 = CONST 1.5
+  t120 = GT t118, t119
+  t121 = OR t117, t120
+  IF_FALSE t121 GOTO L6
+  t122 = CONST ALERT
+  STORE status, t122
+  t123 = CONST Safety attention required
+  ARG 0 = t123
+  t124 = CALL PRINT 1
+  GOTO L7
+L6:
+  t125 = CONST Safety nominal
+  ARG 0 = t125
+  t126 = CALL PRINT 1
+L7:
+  t127 = LOAD status
+  ARG 0 = t127
+  t128 = CALL PRINT 1
+SECTION HAZARD_CHECK END
+=== End Intermediate Representation ===
+
 
 === ChemiCode Compiler End ===
 Compilation status: SUCCESS

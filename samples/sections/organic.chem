@@ -1,0 +1,16 @@
+ORGANIC {
+    Organic alkane = "ethane";
+    Organic alkene = "ethene";
+    Compound benzene = "benzene";
+
+    PRINT(IS_SATURATED(alkane));
+    PRINT(IS_SATURATED(alkene));
+    PRINT(IS_ISOMER("butane", "isobutane"));
+    PRINT(FIND_SERIES(benzene));
+
+    IF (GET_MASS(alkane) > 10 && Pressure > 1) {
+        PRINT("Organic branch accepted");
+    } ELSE {
+        PRINT("Organic branch rejected");
+    }
+}

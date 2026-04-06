@@ -1,0 +1,19 @@
+INORGANIC {
+    Element potassium = "K";
+    Element chloride = "Cl";
+    Compound salt = "KCl";
+    Compound water = "H2O";
+    Reaction neutralization = "HCl + KOH -> KCl + H2O";
+
+    PRINT(GET_FORMULA(salt));
+    PRINT(GET_MASS(salt));
+    PRINT(GET_CONFIG(potassium));
+    PRINT(GET_VALENCE_ELECTRON(potassium));
+    PRINT(FIND_SERIES(potassium));
+    PRINT(IS_METAL(potassium));
+
+    "HCl" + "KOH" -> "KCl" + "H2O";
+    PRINT(BALANCE(neutralization));
+    PRINT(REACT("HCl", "KOH"));
+    PRINT(PRECIPITATE("AgNO3", "KCl"));
+}

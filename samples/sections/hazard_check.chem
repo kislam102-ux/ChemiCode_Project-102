@@ -1,0 +1,12 @@
+HAZARD_CHECK {
+    Config status = "PASS";
+
+    IF (Temperature > 300 || Pressure > 1.5) {
+        status = "ALERT";
+        PRINT("Safety attention required");
+    } ELSE {
+        PRINT("Safety nominal");
+    }
+
+    PRINT(status);
+}

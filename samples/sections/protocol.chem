@@ -1,0 +1,15 @@
+PROTOCOL {
+    Double mol = 0.50;
+    Double limit = 1.10;
+
+    WHILE (mol < limit) {
+        mol = mol + 0.20;
+        PRINT(mol);
+    }
+
+    TITRATE {
+        mol = mol + 0.10;
+        PRINT("Titration step");
+        PRINT(mol);
+    } UNTIL (mol > 1.50);
+}

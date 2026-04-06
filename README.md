@@ -67,7 +67,6 @@ Show help:
 ```bash
 cd "/e/3-2 projects/passes/ChemiCode_Project-102"
 chmod +x build.sh
-./build.sh
 ./chemicode.exe test.chem
 ```
 .\chemicode.exe test.chem
