@@ -1,0 +1,91 @@
+// ChemiCode full rubric-oriented validation program
+
+SECTION LabSession {
+    Context experiment = "Aqueous acid-base workflow";
+    Double targetPh = 7.0;
+    Double parsedFromString = "12.5"; // implicit conversion test
+    PRINT(experiment);
+    PRINT(targetPh);
+    PRINT(parsedFromString);
+}
+
+ENVIRONMENT {
+    Temperature = 310.15;
+    Pressure = 1.20;
+
+    Double ambientScore = Temperature + Pressure;
+    PRINT(ambientScore);
+    RENDER("Environment stabilized");
+}
+
+INORGANIC {
+    Element sodium = "Na";
+    Element chloride = "Cl";
+    Compound salt = "NaCl";
+    Compound water = "H2O";
+    Reaction neutralization = "HCl + NaOH -> NaCl + H2O";
+
+    PRINT(GET_FORMULA(salt));
+    PRINT(GET_MASS(salt));
+    PRINT(GET_CONFIG(sodium));
+    PRINT(GET_VALENCE_ELECTRON(sodium));
+    PRINT(FIND_SERIES(sodium));
+    PRINT(IS_METAL(sodium));
+
+    "HCl" + "NaOH" -> "NaCl" + "H2O";
+    PRINT(BALANCE(neutralization));
+    PRINT(REACT("HCl", "NaOH"));
+    PRINT(PRECIPITATE("AgNO3", "NaCl"));
+}
+
+ORGANIC {
+    Organic alkane = "ethane";
+    Organic alkene = "ethene";
+    Compound benzene = "benzene";
+
+    PRINT(IS_SATURATED(alkane));
+    PRINT(IS_SATURATED(alkene));
+    PRINT(IS_ISOMER("butane", "isobutane"));
+    PRINT(FIND_SERIES(benzene));
+
+    IF (GET_MASS(alkane) > 10 && Pressure > 1) {
+        PRINT("Organic branch accepted");
+    } ELSE {
+        PRINT("Organic branch rejected");
+    }
+}
+
+QUANTUM {
+    Element oxygen = "O";
+    PRINT(GET_QUANTUM_NUMBERS(oxygen));
+    PRINT(GET_ENTHALPY("Combustion"));
+}
+
+PROTOCOL {
+    Double mol = 0.50;
+    Double limit = 1.10;
+
+    WHILE (mol < limit) {
+        mol = mol + 0.20;
+        PRINT(mol);
+    }
+
+    TITRATE {
+        mol = mol + 0.10;
+        PRINT("Titration step");
+        PRINT(mol);
+    } UNTIL (mol > 1.50);
+}
+
+HAZARD_CHECK {
+    Config status = "PASS";
+
+    IF (Temperature > 300 || Pressure > 1.5) {
+        status = "ALERT";
+        PRINT("Safety attention required");
+    } ELSE {
+        PRINT("Safety nominal");
+    }
+
+    PRINT(status);
+}

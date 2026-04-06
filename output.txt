@@ -1,0 +1,60 @@
+=== ChemiCode Compiler Start ===
+Input file: test.chem
+Output file: output.txt
+[Section Enter] LabSession
+Aqueous acid-base workflow
+7
+12.5
+[Section Exit] LabSession
+[Section Enter] ENVIRONMENT
+[Environment] Temperature set to 310.150 K
+[Environment] Pressure set to 1.200 atm
+311.35
+[Render] Environment stabilized
+[Section Exit] ENVIRONMENT
+[Section Enter] INORGANIC
+NaCl
+58.44
+[Ne] 3s1
+1
+alkali metal
+true
+[Reaction] HCl + NaOH -> NaCl + H2O
+1 HCl + 1 NaOH -> 1 NaCl + 1 H2O
+NaCl + H2O
+AgCl(s) precipitate
+[Section Exit] INORGANIC
+[Section Enter] ORGANIC
+true
+false
+true
+aromatic
+Organic branch accepted
+[Section Exit] ORGANIC
+[Section Enter] QUANTUM
+(n=1,l=2,m=2,s=+1/2)
+-393.5
+[Section Exit] QUANTUM
+[Section Enter] PROTOCOL
+0.7
+0.9
+1.1
+1.3
+Titration step
+1.4
+Titration step
+1.5
+Titration step
+1.6
+[Section Exit] PROTOCOL
+[Section Enter] HAZARD_CHECK
+Safety attention required
+ALERT
+[Section Exit] HAZARD_CHECK
+
+=== ChemiCode Compiler End ===
+Compilation status: SUCCESS
+
+=== Symbol Table Dump ===
+Current visible scope depth: 0
+=== End Symbol Table Dump ===
